@@ -4,6 +4,7 @@ const boxes = document.querySelectorAll('.box');
 const playerOne = document.getElementById('player-one');
 const playerTwo = document.getElementById('player-two');
 const winMessage = document.getElementById('win-message');
+const playAgain = document.getElementById('play-again');
 let playerOneTurn = true;
 
 const winArr = [
@@ -63,12 +64,22 @@ function chechWinner() {
       });
       winMessage.textContent = 'Player one won!';
       boxes.forEach(box => (box.disabled = true));
+      playAgain.innerHTML = `
+        <button class="play-again-btn" onclick="relFun()">Play Again</button>
+      `;
     } else if (winTwo) {
       winMessage.textContent = 'Player two won!';
-      boxes.forEach(box => (box.disabled = true));
       winSeq.forEach(winItem => {
         boxes[winItem].style.backgroundColor = '#1fb91f';
       });
+      boxes.forEach(box => (box.disabled = true));
+      playAgain.innerHTML = `
+        <button class="play-again-btn" onclick="relFun()">Play Again</button>
+      `;
     }
   });
+}
+
+function relFun() {
+  location.reload();
 }
