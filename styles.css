@@ -59,6 +59,11 @@ header {
   background-color: #222;
 }
 
+.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 footer {
   padding: 2em;
   text-align: center;
