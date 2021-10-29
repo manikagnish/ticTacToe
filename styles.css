@@ -62,3 +62,14 @@ footer {
   background-color: #000;
   width: 100vw;
 }
+
+@media screen and (max-width: 500px) {
+  .grid {
+    max-width: 30rem;
+  }
+
+  .box {
+    height: 10rem;
+    width: 10rem;
+  }
+}
