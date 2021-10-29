@@ -51,6 +51,7 @@ header {
   background-color: #111;
   border: 1px solid #ddd;
   border-radius: 5px;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
