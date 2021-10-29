@@ -65,6 +65,11 @@ header {
   text-decoration: underline;
 }
 
+#win-message {
+  text-align: center;
+  margin-top: 2em;
+}
+
 footer {
   padding: 2em;
   text-align: center;
