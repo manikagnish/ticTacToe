@@ -41,45 +41,56 @@ boxes.forEach(box => {
 });
 
 function chechWinner() {
-  for (let winSeq of winArr) {
-    let winOne = true;
-    let winTwo = true;
-    let count = 0;
+  let count = 0;
+  let winOne = true;
+  let winTwo = true;
+  let draw = true;
+  let winningSeq;
 
-    winSeq.forEach(winItem => {
+  for (let winSeq of winArr) {
+    winningSeq = winSeq;
+    winOne = true;
+    winTwo = true;
+    for (let winItem of winSeq) {
       if (boxes[winItem].value === 'O') {
         winOne = winOne && true;
       } else {
         winOne = false;
       }
-    });
-    winSeq.forEach(winItem => {
+    }
+
+    for (let winItem of winSeq) {
       if (boxes[winItem].value === 'X') {
         winTwo = winTwo && true;
       } else {
         winTwo = false;
       }
-    });
-    boxes.forEach(box => {
-      if (box.disabled === true) {
-        count++;
-      }
-    });
+    }
 
-    if (winOne) {
-      winScreen('Player one won!', winSeq, winOne, winTwo);
-      break;
-    } else if (winTwo) {
-      winScreen('Player two won!', winSeq, winOne, winTwo);
-      break;
-    } else if (count === 9) {
-      winScreen("It's a draw", [0, 1, 2, 3, 4, 5, 6, 7, 8], winOne, winTwo);
+    if (winOne || winTwo) {
+      draw = false;
       break;
     }
   }
+
+  if (winOne) {
+    winScreen('Player one won!', winningSeq);
+  } else if (winTwo) {
+    winScreen('Player two won!', winningSeq);
+  }
+
+  boxes.forEach(box => {
+    if (box.disabled === true) {
+      count++;
+    }
+  });
+
+  if (count === 9 && draw === true) {
+    winScreen("It's a draw", [0, 1, 2, 3, 4, 5, 6, 7, 8]);
+  }
 }
 
-function winScreen(message, winSeq, winOne, winTwo) {
+function winScreen(message, winSeq) {
   winMessage.textContent = message;
   winSeq.forEach(winItem => {
     boxes[winItem].style.backgroundColor = '#1fb91f';
