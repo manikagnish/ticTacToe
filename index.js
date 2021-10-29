@@ -21,63 +21,75 @@ const winArr = [
 boxes.forEach(box => {
   box.addEventListener('click', () => {
     if (playerOneTurn) {
-      box.textContent = 'X';
+      box.textContent = 'O';
       playerOneTurn = false;
       box.disabled = true;
       playerTwo.classList.add('active');
       playerOne.classList.remove('active');
-      box.value = 'X';
+      box.value = 'O';
       chechWinner();
     } else {
-      box.textContent = 'O';
+      box.textContent = 'X';
       playerOneTurn = true;
       box.disabled = true;
       playerOne.classList.add('active');
       playerTwo.classList.remove('active');
-      box.value = 'O';
+      box.value = 'X';
       chechWinner();
     }
   });
 });
 
 function chechWinner() {
-  winArr.forEach(winSeq => {
+  for (let winSeq of winArr) {
     let winOne = true;
     let winTwo = true;
+    let count = 0;
+
     winSeq.forEach(winItem => {
-      if (boxes[winItem].value === 'X') {
+      if (boxes[winItem].value === 'O') {
         winOne = winOne && true;
       } else {
         winOne = false;
       }
     });
     winSeq.forEach(winItem => {
-      if (boxes[winItem].value === 'O') {
+      if (boxes[winItem].value === 'X') {
         winTwo = winTwo && true;
       } else {
         winTwo = false;
       }
     });
+    boxes.forEach(box => {
+      if (box.disabled === true) {
+        count++;
+      }
+    });
+
     if (winOne) {
-      winSeq.forEach(winItem => {
-        boxes[winItem].style.backgroundColor = '#1fb91f';
-      });
-      winMessage.textContent = 'Player one won!';
-      boxes.forEach(box => (box.disabled = true));
-      playAgain.innerHTML = `
-        <button class="play-again-btn" onclick="relFun()">Play Again</button>
-      `;
+      winScreen('Player one won!', winSeq, winOne, winTwo);
+      break;
     } else if (winTwo) {
-      winMessage.textContent = 'Player two won!';
-      winSeq.forEach(winItem => {
-        boxes[winItem].style.backgroundColor = '#1fb91f';
-      });
-      boxes.forEach(box => (box.disabled = true));
-      playAgain.innerHTML = `
-        <button class="play-again-btn" onclick="relFun()">Play Again</button>
-      `;
+      winScreen('Player two won!', winSeq, winOne, winTwo);
+      break;
+    } else if (count === 9) {
+      winScreen("It's a draw", [0, 1, 2, 3, 4, 5, 6, 7, 8], winOne, winTwo);
+      break;
     }
+  }
+}
+
+function winScreen(message, winSeq, winOne, winTwo) {
+  winMessage.textContent = message;
+  winSeq.forEach(winItem => {
+    boxes[winItem].style.backgroundColor = '#1fb91f';
   });
+  boxes.forEach(box => (box.disabled = true));
+  playAgain.innerHTML = `
+    <button class="play-again-btn" onclick="relFun()">Play Again</button>
+  `;
+  playerOne.classList.remove('active');
+  playerTwo.classList.remove('active');
 }
 
 function relFun() {
