@@ -41,6 +41,7 @@ header {
   flex-wrap: wrap;
   width: 95vw;
   max-width: 45rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .box {
