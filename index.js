@@ -93,7 +93,7 @@ function chechWinner() {
 function winScreen(message, winSeq) {
   winMessage.textContent = message;
   winSeq.forEach(winItem => {
-    boxes[winItem].style.backgroundColor = '#1fb91f';
+    boxes[winItem].classList.add('win-box');
   });
   boxes.forEach(box => (box.disabled = true));
   playAgain.innerHTML = `
@@ -104,5 +104,15 @@ function winScreen(message, winSeq) {
 }
 
 function relFun() {
-  location.reload();
+  // location.reload();
+  playerOne.classList.add('active');
+  boxes.forEach(box => {
+    box.textContent = '';
+    box.classList.remove('win-box');
+    box.disabled = false;
+    box.value = null;
+  });
+  playerOneTurn = true;
+  document.querySelector('.play-again-btn').style.display = 'none';
+  winMessage.textContent = '';
 }

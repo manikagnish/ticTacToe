@@ -86,6 +86,14 @@ header {
   cursor: pointer;
 }
 
+.win-box {
+  background-color: #1fb91f;
+}
+
+.win-box:hover {
+  background-color: #1fb91f;
+}
+
 footer {
   padding: 1em;
   text-align: center;
